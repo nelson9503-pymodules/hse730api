@@ -213,7 +213,7 @@ class ContentExtactor:
         for i in range(len(lines)):
             line = lines[i]
             if "共" in line and "條留言" in line:
-                for i2 in range(i, len(lines)):
+                for i2 in range(i, i+30):
                     line = lines[i2]
                     if "(javascript:void\(0\);)" in line:
                         i3 = i2 + 1
