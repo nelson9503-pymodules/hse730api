@@ -187,14 +187,15 @@ class ContentExtactor:
             if "放盤到期日" in line:
                 self.results["post_due_date"] = line.replace("放盤到期日", "")
                 break
-    
+
     def __check_contact_type(self, lines: list):
         for i in range(len(lines)):
             line = lines[i]
             if "共" in line and "條留言" in line:
-                self.results["contant_type"] = lines[i+2].replace("盤", "").replace("自讓", "")
+                self.results["contant_type"] = lines[i +
+                                                     2].replace("盤", "").replace("自讓", "")
                 break
-    
+
     def __check_contact_person(self, lines: list):
         for i in range(len(lines)):
             line = lines[i]
@@ -208,7 +209,7 @@ class ContentExtactor:
                         self.results["contant_person"] = lines[i3]
                         break
                 break
-    
+
     def __check_contact_phone(self, lines: list):
         for i in range(len(lines)):
             line = lines[i]
@@ -219,11 +220,15 @@ class ContentExtactor:
                         i3 = i2 + 1
                         while not len(lines[i3]) >= 2 or not lines[i3][:2] == "__":
                             i3 += 1
-                        phone = lines[i3].replace("__", "")
-                        self.results["contant_phone"] = phone.split(" ")[0]
+                            if i3 == len(lines):
+                                break
+                        if not i3 == len(lines):
+                            phone = lines[i3].replace("__", "")
+                            self.results["contant_phone"] = phone.split(" ")[0]
+                        else:
+                            self.results["contant_phone"] = ""
                         break
                 break
-            
 
     def __is_number(self, txt: str) -> bool:
         if txt in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
