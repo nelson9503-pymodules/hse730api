@@ -84,8 +84,14 @@ class ContentExtactor:
                 txts = self.__extract_between(line, "$", "*")
                 if len(txts) >= 1:
                     price = txts[0]
-                    self.results["price"] = price.replace(
-                        ",", "").replace("萬", "0000")
+                    price = price.replace(",", "")
+                    if "萬" in price:
+                        price = price.replace("萬", "")
+                        price = float(price) * 10000
+                    elif "億" in price:
+                        price = price.replace("億", "")
+                        price = float(price) * 100000000
+                    self.results["price"] = price
                 break
 
     def __check_real_area(self, lines: list):
