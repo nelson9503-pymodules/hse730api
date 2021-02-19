@@ -206,6 +206,8 @@ class ContentExtactor:
                         i3 = i2 + 1
                         while len(lines[i3]) == 0 or lines[i3][0] == " ":
                             i3 += 1
+                            if i3 == len(lines):
+                                break
                         self.results["contant_person"] = lines[i3]
                         break
                 break
