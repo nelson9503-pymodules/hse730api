@@ -103,6 +103,8 @@ class ContentExtactor:
                     while index > 0 and self.__is_number(line[index]):
                         area = line[index] + area
                         index -= 1
+                    if not area == "":
+                        self.results["real_area"] = int(float(area))
                 break
 
     def __check_build_area(self, lines: list):
@@ -114,6 +116,8 @@ class ContentExtactor:
                     while index > 0 and self.__is_number(line[index]):
                         area = line[index] + area
                         index -= 1
+                    if not area == "":
+                        self.results["build_area"] = int(float(area))
                 break
 
     def __check_room(self, lines: list):
@@ -142,7 +146,7 @@ class ContentExtactor:
     def __check_address(self, lines: list):
         for line in lines:
             if line[:4] == "樓盤地址":
-                self.results["adress"] = line.replace("樓盤地址 ", "")
+                self.results["address"] = line.replace("樓盤地址 ", "")
                 break
 
     def __check_phase(self, lines: list):
@@ -192,7 +196,7 @@ class ContentExtactor:
         for i in range(len(lines)):
             line = lines[i]
             if "共" in line and "條留言" in line:
-                self.results["contant_type"] = lines[i +
+                self.results["contact_type"] = lines[i +
                                                      2].replace("盤", "").replace("自讓", "")
                 break
 
@@ -208,7 +212,7 @@ class ContentExtactor:
                             i3 += 1
                             if i3 == len(lines):
                                 break
-                        self.results["contant_person"] = lines[i3]
+                        self.results["contact_person"] = lines[i3]
                         break
                 break
 
@@ -226,9 +230,9 @@ class ContentExtactor:
                                 break
                         if not i3 == len(lines):
                             phone = lines[i3].replace("__", "")
-                            self.results["contant_phone"] = phone.split(" ")[0]
+                            self.results["contact_phone"] = phone.split(" ")[0]
                         else:
-                            self.results["contant_phone"] = ""
+                            self.results["contact_phone"] = ""
                         break
                 break
 
